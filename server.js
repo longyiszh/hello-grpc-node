@@ -17,16 +17,39 @@ let legumes = [
 
 gServer.addService(legumeProto.VegetableService.service, {
   list: (_, callback) => { callback(null, legumes) },
+
   insert: (ctx, callback) => {
     let newLegume = ctx.request;
     
-    
     newLegume.id = `newLLEEgggUUmmmEE${ parseInt(Math.random() * 100)}`;
 
-    console.log(newLegume);
     legumes.push(newLegume);
 
     callback(null, newLegume);
+  },
+
+  update: (ctx, callback) => {
+    let id = ctx.request.id;
+    // let fieldsToUpdate = ctx.request.token;
+    let reqVegetable = ctx.request;
+    let vegetableToUpdate = legumes.find( (legume) => { return legume.id === id } );
+
+    if (vegetableToUpdate) {
+      // vegetableToUpdate = {
+      //   ...vegetableToUpdate,
+      //   ...fieldsToUpdate
+      // };
+      // <-- does not work. "fieldsToUpdate" contanins 0 or empty string, if a field is not provided. 
+      //     You must replace vegetableToUpdate with a complete vegetable object.
+      vegetableToUpdate = {...reqVegetable}
+      callback(null, vegetableToUpdate);
+    } else {
+      callback({
+        code: grpc.status.NOT_FOUND,
+        details: `Failed to find vegetable with id ${id}`
+      })
+    }
+
   }
 
 });

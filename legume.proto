@@ -17,4 +17,5 @@ message VegetableList {
 service VegetableService {
   rpc List(Empty) returns (VegetableList) {}
   rpc Insert(Vegetable) returns (Vegetable) {}
+  rpc Update(Vegetable) returns (Vegetable) {}
 }
