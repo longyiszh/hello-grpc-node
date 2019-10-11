@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+message Empty {}
+
+message Vegetable {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+  float health = 4;
+  bool isBiologique = 5;
+}
+
+message VegetableList {
+  repeated Vegetable legumes = 1;
+}
+
+service VegetableService {
+  rpc List(Empty) returns (VegetableList) {}
+  rpc Insert(Vegetable) returns (Vegetable) {}
+}
