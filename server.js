@@ -1,4 +1,4 @@
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
 const legumeDef = protoLoader.loadSync("./legume.proto");
@@ -61,8 +61,9 @@ gServer.addService(legumeProto.VegetableService.service, {
 
 const host = "localhost:50051";
 
-gServer.bind(host, grpc.ServerCredentials.createInsecure());
+gServer.bindAsync(host, grpc.ServerCredentials.createInsecure(), () => {
+  console.log(`gRPC Server is running at ${host}`);
 
-console.log(`gRPC Server is running at ${host}`);
+  gServer.start()
+});
 
-gServer.start()
