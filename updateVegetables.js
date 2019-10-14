@@ -23,7 +23,7 @@ let updateRequest = {
   price: 8.88,
   health: 12.75,
   isBiologique: false,
-};  // <-- is bad. Causes empty string and 0 values.
+};
 
 client.update(updateRequest, (error, response) => {
   if (error) {

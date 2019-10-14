@@ -1,7 +1,9 @@
 const client = require('./client');
 
 client.list(
-  {},
+  {
+    message: "daruabao"
+  },
   (error, vegetables) => {
     if (error) {
       console.error(error);

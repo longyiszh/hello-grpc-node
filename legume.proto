@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-message Empty {}
+message ListOptions {
+  string message = 1;
+}
 
 message Vegetable {
   string id = 1;
@@ -15,7 +17,7 @@ message VegetableList {
 }
 
 service VegetableService {
-  rpc List(Empty) returns (VegetableList) {}
+  rpc List(ListOptions) returns (VegetableList) {}
   rpc Insert(Vegetable) returns (Vegetable) {}
   rpc Update(Vegetable) returns (Vegetable) {}
 }

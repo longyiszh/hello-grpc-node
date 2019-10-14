@@ -16,7 +16,10 @@ let legumes = [
 ];
 
 gServer.addService(legumeProto.VegetableService.service, {
-  list: (_, callback) => { callback(null, legumes) },
+  list: (ctx, callback) => {
+    console.log(ctx.request);
+    callback(null, legumes);
+  },
 
   insert: (ctx, callback) => {
     let newLegume = ctx.request;
