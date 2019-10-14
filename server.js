@@ -1,7 +1,8 @@
 const grpc = require('grpc');
+const protoLoader = require('@grpc/proto-loader');
 
-
-const legumeProto = grpc.load("./legume.proto");
+const legumeDef = protoLoader.loadSync("./legume.proto");
+const legumeProto = grpc.loadPackageDefinition(legumeDef).legume;
 
 const gServer = new grpc.Server();
 
@@ -18,7 +19,8 @@ let legumes = [
 gServer.addService(legumeProto.VegetableService.service, {
   list: (ctx, callback) => {
     console.log(ctx.request);
-    callback(null, legumes);
+    
+    callback(null, {legumes}); // <-- you ALWAYS have to return an object
   },
 
   insert: (ctx, callback) => {

@@ -1,6 +1,8 @@
 const grpc = require('grpc');
+const protoLoader = require('@grpc/proto-loader');
 
-const legumeProto = grpc.load("./legume.proto");
+const legumeDef = protoLoader.loadSync("./legume.proto");
+const legumeProto = grpc.loadPackageDefinition(legumeDef).legume;
 
 const VegetableService = legumeProto.VegetableService;
 
